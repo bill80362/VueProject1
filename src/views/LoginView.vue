@@ -4,8 +4,8 @@ import {ref , onMounted} from "vue";
 const DataApi = useDataApiStore();
 
 const formValue = ref({
-  "Account": "",
-  "Password": "",
+  "Account": import.meta.env.VITE_DEFAULT_ACCOUNT,
+  "Password": import.meta.env.VITE_DEFAULT_PASSWORD,
 })
 </script>
 
