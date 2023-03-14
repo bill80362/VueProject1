@@ -1,15 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import {useDataApiStore} from "../stores/api";
+/**通用*/
 import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
+/**productCategory*/
 import ProductCategoryView from '../views/ProductCategoryView.vue'
+import ProductCategoryCreateView from '../views/ProductCategoryCreateView.vue'
 
-import {useDataApiStore} from "../stores/api";
-// const DataApi = useDataApiStore();
-// console.log(DataApi)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+      /**通用*/
     {
       path: '/login',
       name: 'Login',
@@ -20,9 +22,14 @@ const router = createRouter({
       name: 'Home',
       component: DashboardView
     },
+      /**productCategory*/
     {
       path: '/productCategory/list',
       component: ProductCategoryView
+    },
+    {
+      path: '/productCategory/create',
+      component: ProductCategoryCreateView
     },
     {
       path: '/about',

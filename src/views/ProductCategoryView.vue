@@ -1,9 +1,11 @@
 <script setup>
 import { useMessage } from "naive-ui";
-import {computed, ref , onMounted , onUpdated} from "vue";
+import {computed, ref, onMounted, onUpdated, h} from "vue";
 import DataList from "../components/DataList.vue";
 import { storeToRefs } from 'pinia'
 import {useDataApiStore} from "../stores/api";
+import router from "../router";
+import {RouterLink} from "vue-router/dist/vue-router";
 const DataApi = useDataApiStore();
 
 const page = ref(1)
@@ -13,6 +15,12 @@ onMounted(async ()=>{
   await DataApi.apiGoodsList()
 });
 
+const clickCreate = () =>{
+  router.push("/productCategory/create");
+}
+
+
+
 onUpdated(()=>{
   // console.log("AAA");
 })
@@ -20,10 +28,10 @@ onUpdated(()=>{
 </script>
 
 <template>
-  <n-page-header title="商品分類管理" :subtitle="'筆數:'+DataApi.GoodsList.length">
+  <n-page-header title="商品分類管理" :subtitle="'列表、總筆數:'+DataApi.GoodsList.length">
     <template #extra>
       <n-space>
-        <n-button type="success">新增</n-button>
+        <n-button type="success" @click="clickCreate">新增</n-button>
       </n-space>
     </template>
     <n-grid :cols="1">
