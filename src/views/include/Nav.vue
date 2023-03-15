@@ -37,8 +37,8 @@ const menuOptions = ref([
         icon: renderIcon(Settings),
       },
       {
-        label: ()=>h(RouterLink,{to:"/product/list"},"顏色管理"),
-        key: "Product4",
+        label: ()=>h(RouterLink,{to:"/GoodsColor/list"},"顏色管理"),
+        key: "GoodsColor",
         icon: renderIcon(Settings),
       },
       {
