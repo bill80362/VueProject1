@@ -73,7 +73,7 @@ export const useDataApiStore = defineStore('api', () => {
         }
         //
         let res = [];
-        if(data.ColorID===undefined){
+        if(data.ID==="0"){
             try {
                 res = await axios.put(ApiMasterUrl + "/admin/color", data, axios_config);
             } catch (error) {}

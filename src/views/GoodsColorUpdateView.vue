@@ -12,17 +12,22 @@ const Data = ref({});
 
 onMounted(async () => {
 
-    if(route.params.id){
+    if(route.params.id !== "0"){
         //修改
         DataApi.ColorList.forEach((item, index, array) => {
-            if(route.params.id===item.ColorID)
+            if(route.params.id===item.ColorID){
                 Data.value = item;
+                Data.value.ID = item.ColorID;
+            }
+
         })
     }else{
         //新增
         Data.value = {
+            ID: "0" ,
+            ColorID: "0",
             ColorTitle:"",
-            GoodsID:1,
+            GoodsID:"1",
             Status:"Y",
         }
     }
@@ -36,8 +41,9 @@ const handleBack = () => {
     router.go(-1);
 }
 
-const handleSubmit = () => {
-    DataApi.apiColorUpdateCreate(Data.value);
+const handleSubmit = async () => {
+    await DataApi.apiColorUpdateCreate(Data.value);
+    handleBack();
 }
 
 </script>

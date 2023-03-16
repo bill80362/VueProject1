@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUpdated, h} from "vue";
+import {ref, onMounted, onUpdated, h, onBeforeMount} from "vue";
 import {useDataApiStore} from "../stores/api";
 import router from "../router";
 
@@ -7,6 +7,10 @@ const DataApi = useDataApiStore();
 
 const page = ref(1)
 const pageTotal = ref(10)
+
+onBeforeMount(async ()=>{
+    DataApi.ColorList = [];
+})
 
 onMounted(async ()=>{
   await DataApi.apiColorList()
