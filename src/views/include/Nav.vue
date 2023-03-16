@@ -22,8 +22,13 @@ const menuOptions = ref([
     icon: renderIcon(Settings),
     children: [
       {
-        label: ()=>h(RouterLink,{to:"/productCategory/list"},"商品分類管理"),
-        key: "Product1",
+        label: ()=>h(RouterLink,{to:"/menu/category/list"},"商品大分類"),
+        key: "menuCategory",
+        icon: renderIcon(Settings),
+      },
+      {
+        label: ()=>h(RouterLink,{to:"/menu/list"},"商品小分類"),
+        key: "menu",
         icon: renderIcon(Settings),
       },
       {

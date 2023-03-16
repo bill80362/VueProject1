@@ -3,9 +3,12 @@ import {useDataApiStore} from "../stores/api";
 /**通用*/
 import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
-/**productCategory*/
-import ProductCategoryView from '../views/ProductCategoryView.vue'
-import ProductCategoryCreateView from '../views/ProductCategoryCreateView.vue'
+/**MenuCategory*/
+import MenuCategoryListView from '../views/MenuCategoryListView.vue'
+import MenuCategoryUpdateView from '../views/MenuCategoryUpdateView.vue'
+/**Menu*/
+import MenuListView from '../views/MenuListView.vue'
+import MenuUpdateView from '../views/MenuUpdateView.vue'
 /**顏色*/
 import GoodsColorListView from '../views/GoodsColorListView.vue'
 import GoodsColorUpdateView from '../views/GoodsColorUpdateView.vue'
@@ -28,14 +31,23 @@ const router = createRouter({
       name: 'Home',
       component: DashboardView
     },
-      /**productCategory*/
+      /**menu category*/
     {
-      path: '/productCategory/list',
-      component: ProductCategoryView
+      path: '/menu/category/list',
+      component: MenuCategoryListView
     },
     {
-      path: '/productCategory/create',
-      component: ProductCategoryCreateView
+      path: '/menu/category/update/:id',
+      component: MenuCategoryUpdateView
+    },
+    /**menu*/
+    {
+      path: '/menu/list',
+      component: MenuListView
+    },
+    {
+      path: '/menu/update/:id',
+      component: MenuUpdateView
     },
     /**Color*/
     {

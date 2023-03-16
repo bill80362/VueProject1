@@ -122,6 +122,80 @@ export const useDataApiStore = defineStore('api', () => {
         //儲存
         SizeList.value = res.data.data;
     }
+    //MenuCategory
+    const MenuCategoryList = ref([]);
+    const apiMenuCategoryList = async () => {
+        try {
+            const res = await axios.get(ApiMasterUrl + "/admin/menu/category", {
+                responseType: 'json',
+                "headers": {
+                    "Authorization": "Bearer " + Token.value,
+                }
+            });
+            MenuCategoryList.value = res.data.data;
+        } catch (error) {
+            //error handle
+        }
+    }
+    const apiMenuCategoryUpdateCreate = async (data) => {
+        //config
+        let axios_config = {
+            responseType: 'json',
+            "headers": {
+                "Authorization": "Bearer " + Token.value,
+            }
+        }
+        //
+        let res = [];
+        if(data.ID==="0"){
+            try {
+                res = await axios.put(ApiMasterUrl + "/admin/menu/category", data, axios_config);
+            } catch (error) {}
+        }else{
+            try {
+                res = await axios.patch(ApiMasterUrl + "/admin/menu/category", data, axios_config);
+            } catch (error) {}
+        }
+        //儲存
+        MenuCategoryList.value = res.data.data;
+    }
+    //Menu
+    const MenuList = ref([]);
+    const apiMenuList = async () => {
+        try {
+            const res = await axios.get(ApiMasterUrl + "/admin/menu", {
+                responseType: 'json',
+                "headers": {
+                    "Authorization": "Bearer " + Token.value,
+                }
+            });
+            MenuList.value = res.data.data;
+        } catch (error) {
+            //error handle
+        }
+    }
+    const apiMenuUpdateCreate = async (data) => {
+        //config
+        let axios_config = {
+            responseType: 'json',
+            "headers": {
+                "Authorization": "Bearer " + Token.value,
+            }
+        }
+        //
+        let res = [];
+        if(data.ID==="0"){
+            try {
+                res = await axios.put(ApiMasterUrl + "/admin/menu", data, axios_config);
+            } catch (error) {}
+        }else{
+            try {
+                res = await axios.patch(ApiMasterUrl + "/admin/menu", data, axios_config);
+            } catch (error) {}
+        }
+        //儲存
+        MenuList.value = res.data.data;
+    }
 
     return {
         //Login
@@ -139,5 +213,13 @@ export const useDataApiStore = defineStore('api', () => {
         SizeList,
         apiSizeList,
         apiSizeUpdateCreate,
+        //MenuCategory
+        MenuCategoryList,
+        apiMenuCategoryList,
+        apiMenuCategoryUpdateCreate,
+        //Menu
+        MenuList,
+        apiMenuList,
+        apiMenuUpdateCreate,
     }
 })
