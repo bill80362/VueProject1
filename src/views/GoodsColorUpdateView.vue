@@ -3,14 +3,29 @@ import {onMounted, onUpdated, ref} from "vue";
 import {useDataApiStore} from "../stores/api";
 import router from "../router";
 
+import { useRoute } from 'vue-router'
+
 const DataApi = useDataApiStore();
+const route = useRoute()
+
 const Data = ref({});
+
 onMounted(async () => {
-    //拿取該物件
-    DataApi.GoodsColorList.forEach((item, index, array) => {
-        Data.value = item;
-        return true;//拿到值就離開
-    })
+
+    if(route.params.id){
+        //修改
+        DataApi.ColorList.forEach((item, index, array) => {
+            if(route.params.id===item.ColorID)
+                Data.value = item;
+        })
+    }else{
+        //新增
+        Data.value = {
+            ColorTitle:"",
+            GoodsID:1,
+            Status:"Y",
+        }
+    }
 
 });
 onUpdated(() => {
@@ -22,7 +37,7 @@ const handleBack = () => {
 }
 
 const handleSubmit = () => {
-    DataApi
+    DataApi.apiColorUpdateCreate(Data.value);
 }
 
 </script>

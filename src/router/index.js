@@ -8,7 +8,7 @@ import ProductCategoryView from '../views/ProductCategoryView.vue'
 import ProductCategoryCreateView from '../views/ProductCategoryCreateView.vue'
 /**顏色*/
 import GoodsColorListView from '../views/GoodsColorListView.vue'
-import GoodsColorCreateView from '../views/GoodsColorCreateView.vue'
+import GoodsColorUpdateView from '../views/GoodsColorUpdateView.vue'
 
 
 const router = createRouter({
@@ -40,12 +40,8 @@ const router = createRouter({
       component: GoodsColorListView
     },
     {
-      path: '/GoodsColor/create',
-      component: GoodsColorCreateView
-    },
-    {
-      path: '/GoodsColor/update',
-      component: ProductCategoryCreateView
+      path: '/GoodsColor/update/:id',
+      component: GoodsColorUpdateView
     },
     {
       path: '/about',

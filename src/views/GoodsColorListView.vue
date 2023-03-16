@@ -12,17 +12,17 @@ onMounted(async ()=>{
   await DataApi.apiColorList()
 });
 
-const clickCreate = () =>{
-  router.push("/GoodsColor/create");
+const clickUpdate = (id) =>{
+  router.push("/GoodsColor/update/"+id);
 }
 
 </script>
 
 <template>
-  <n-page-header title="商品顏色管理" :subtitle="'列表、總筆數:'+DataApi.GoodsList.length">
+  <n-page-header title="商品顏色管理" :subtitle="'列表、總筆數:'+DataApi.ColorList.length">
     <template #extra>
       <n-space>
-        <n-button type="success" @click="clickCreate">新增</n-button>
+        <n-button type="success" @click="clickUpdate(0)">新增</n-button>
       </n-space>
     </template>
     <n-grid :cols="1">
@@ -46,7 +46,7 @@ const clickCreate = () =>{
             <td>{{row.updated_at}}</td>
             <td>{{row.created_at}}</td>
             <td>
-              <n-button type="primary" style="margin: 3px;">編輯</n-button>
+              <n-button type="primary" style="margin: 3px;" @click="clickUpdate(row.ColorID)">編輯</n-button>
               <n-button type="warning" style="margin: 3px;">刪除</n-button>
             </td>
           </tr>
