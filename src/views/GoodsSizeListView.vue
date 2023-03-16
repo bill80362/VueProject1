@@ -64,18 +64,18 @@ const TableData = ref([]);
 
 //
 onBeforeMount(async ()=>{
-    DataApi.ColorList = [];
+    DataApi.SizeList = [];
 })
 
 onMounted(async ()=>{
-    await DataApi.apiColorList()
+    await DataApi.apiSizeList()
     //放入資料
     TableData.value = [];
-    DataApi.ColorList.forEach((row)=>{
+    DataApi.SizeList.forEach((row)=>{
         TableData.value.push(
             {
-                ID:row.ColorID,
-                Title:row.ColorTitle,
+                ID:row.SizeID,
+                Title:row.SizeTitle,
                 Status:row.Status,
                 updated_at:row.updated_at,
                 created_at:row.created_at,
@@ -85,13 +85,13 @@ onMounted(async ()=>{
 });
 
 const clickUpdate = (id) =>{
-  router.push("/GoodsColor/update/"+id);
+  router.push("/GoodsSize/update/"+id);
 }
 
 </script>
 
 <template>
-  <n-page-header title="商品顏色管理" :subtitle="'列表、總筆數:'+DataApi.ColorList.length">
+  <n-page-header title="商品顏色管理" :subtitle="'列表、總筆數:'+DataApi.SizeList.length">
     <template #extra>
       <n-space>
         <n-button type="success" @click="clickUpdate(0)">新增</n-button>

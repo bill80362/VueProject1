@@ -85,6 +85,43 @@ export const useDataApiStore = defineStore('api', () => {
         //儲存
         ColorList.value = res.data.data;
     }
+    //Size
+    const SizeList = ref([]);
+    const apiSizeList = async () => {
+        try {
+            const res = await axios.get(ApiMasterUrl + "/admin/size", {
+                responseType: 'json',
+                "headers": {
+                    "Authorization": "Bearer " + Token.value,
+                }
+            });
+            SizeList.value = res.data.data;
+        } catch (error) {
+            //error handle
+        }
+    }
+    const apiSizeUpdateCreate = async (data) => {
+        //config
+        let axios_config = {
+            responseType: 'json',
+            "headers": {
+                "Authorization": "Bearer " + Token.value,
+            }
+        }
+        //
+        let res = [];
+        if(data.ID==="0"){
+            try {
+                res = await axios.put(ApiMasterUrl + "/admin/size", data, axios_config);
+            } catch (error) {}
+        }else{
+            try {
+                res = await axios.patch(ApiMasterUrl + "/admin/size", data, axios_config);
+            } catch (error) {}
+        }
+        //儲存
+        SizeList.value = res.data.data;
+    }
 
     return {
         //Login
@@ -98,5 +135,9 @@ export const useDataApiStore = defineStore('api', () => {
         ColorList,
         apiColorList,
         apiColorUpdateCreate,
+        //Size
+        SizeList,
+        apiSizeList,
+        apiSizeUpdateCreate,
     }
 })

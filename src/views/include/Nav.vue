@@ -42,8 +42,8 @@ const menuOptions = ref([
         icon: renderIcon(Settings),
       },
       {
-        label: ()=>h(RouterLink,{to:"/product/list"},"尺寸管理"),
-        key: "Product5",
+        label: ()=>h(RouterLink,{to:"/GoodsSize/list"},"尺寸管理"),
+        key: "GoodsSize",
         icon: renderIcon(Settings),
       },
     ],
