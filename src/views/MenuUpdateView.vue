@@ -81,6 +81,12 @@ const handleSubmit = async () => {
                 <n-form-item label="大分類" v-show="(route.params.id === '0')">
                 <n-select v-model:value="Data.MenuCategoryID" :options="MenuCategoryOption" />
                 </n-form-item>
+                <n-form-item label="狀態">
+                    <n-switch checked-value="Y" unchecked-value="N" v-model:value="Data.Status"/>
+                </n-form-item>
+                <n-form-item label="排序">
+                    <n-input-number type="text" v-model:value="Data.Seq"/>
+                </n-form-item>
                 <n-form-item label="標題">
                     <n-input type="text" v-model:value="Data.Title"/>
                 </n-form-item>
@@ -108,14 +114,21 @@ const handleSubmit = async () => {
                 <n-form-item label="內文7">
                     <n-input type="textarea" v-model:value="Data.Content7"/>
                 </n-form-item>
+                <n-form-item label="檔案">
+                    <n-upload
+                        action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
+                        :headers="{
+      'naive-info': 'hello!'
+    }"
+                        :data="{
+      'naive-data': 'cool! naive!'
+    }"
+                    >
+                        <n-button>上传文件</n-button>
+                    </n-upload>
+                    <n-button @click="handleSubmit">送出</n-button>
+                </n-form-item>
 
-                <n-form-item label="狀態">
-                    <n-switch checked-value="Y" unchecked-value="N" v-model:value="Data.Status"/>
-                </n-form-item>
-                <n-form-item label="排序">
-                    <n-input-number type="text" v-model:value="Data.Seq"/>
-                </n-form-item>
-                <n-button @click="handleSubmit">送出</n-button>
             </n-form>
         </n-card>
 
