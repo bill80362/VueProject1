@@ -4,9 +4,19 @@ import {defineStore} from 'pinia'
 import axios from "axios";
 import router from "../router";
 
-const ApiMasterUrl = import.meta.env.VITE_BACKEND_HOST;
+
 
 export const useDataApiStore = defineStore('api', () => {
+    const ApiMasterUrl = import.meta.env.VITE_BACKEND_HOST;
+    //FroalaEditorConfig
+    const FroalaEditorConfig = ref({
+        imageUploadURL: ApiMasterUrl,
+        events: {
+            initialized: function () {
+                console.log('initialized')
+            }
+        }
+    });
     //Login
     const Token = ref("")
     const isLogin = computed(() => {
@@ -198,7 +208,12 @@ export const useDataApiStore = defineStore('api', () => {
     }
 
     return {
+        //
+        FroalaEditorConfig,
+        //
+        ApiMasterUrl,
         //Login
+        Token,
         isLogin,
         login,
         //Goods

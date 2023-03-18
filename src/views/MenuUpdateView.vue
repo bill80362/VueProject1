@@ -7,52 +7,53 @@ import {useRoute} from 'vue-router'
 
 const DataApi = useDataApiStore();
 const route = useRoute()
+const uploadRef = ref(null);
 
 const Data = ref({});
 let MenuCategoryOption = ref([])
 
 onMounted(async () => {
-    //製作分類KeyValue
-    await DataApi.apiMenuCategoryList()
-    MenuCategoryOption.value = [];
-    DataApi.MenuCategoryList.forEach((item) => {
-        MenuCategoryOption.value.push({
-            label: item.Title,
-            value: item.MenuCategoryID,
-        })
-    });
-    //
-    if (route.params.id !== "0") {
-        //修改
-        DataApi.MenuList.forEach((item, index, array) => {
-            if (route.params.id === item.MenuID) {
-                Data.value = item;
-                Data.value.ID = item.MenuID;
-            }
+  //製作分類KeyValue
+  await DataApi.apiMenuCategoryList()
+  MenuCategoryOption.value = [];
+  DataApi.MenuCategoryList.forEach((item) => {
+    MenuCategoryOption.value.push({
+      label: item.Title,
+      value: item.MenuCategoryID,
+    })
+  });
+  //
+  if (route.params.id !== "0") {
+    //修改
+    DataApi.MenuList.forEach((item, index, array) => {
+      if (route.params.id === item.MenuID) {
+        Data.value = item;
+        Data.value.ID = item.MenuID;
+      }
 
-        })
-    } else {
-        //新增
-        Data.value = {
-            ID: "0",
-            CategoryID: "0",
-            MenuID: "0",
-            Title: "",
-            Seq: "1",
-            Status: "Y",
-            Content: "",
-            Content2: "",
-            Content3: "",
-            Content4: "",
-            Content5: "",
-            Content6: "",
-            Content7: "",
-            MenuTimeEnd:"",
-            MenuTimeStart:"",
-            Subtitle:"",
-            Image1:"",
-        }
+    })
+  } else {
+    //新增
+    Data.value = {
+      ID: "0",
+      CategoryID: "0",
+      MenuID: "0",
+      Title: "",
+      Seq: "1",
+      Status: "Y",
+      Content: "",
+      Content2: "",
+      Content3: "",
+      Content4: "",
+      Content5: "",
+      Content6: "",
+      Content7: "",
+      MenuTimeEnd: "",
+      MenuTimeStart: "",
+      Subtitle: "",
+      Image1: "",
     }
+  }
 
 });
 onUpdated(() => {
@@ -60,77 +61,94 @@ onUpdated(() => {
 })
 
 const handleBack = () => {
-    router.go(-1);
+  router.go(-1);
 }
 
 const handleSubmit = async () => {
-    //新增才有用
-    Data.value.CategoryID = Data.value.MenuCategoryID
-    //
-    await DataApi.apiMenuUpdateCreate(Data.value);
-    handleBack();
+  //新增才有用
+  Data.value.CategoryID = Data.value.MenuCategoryID
+  //
+  await DataApi.apiMenuUpdateCreate(Data.value);
+  //觸發上傳事件
+  uploadRef.value?.submit();
+  //回列表
+  handleBack();
 }
 
 </script>
 
 <template>
-    <n-page-header title="商品大分類" subtitle="新增" @back="handleBack">
-        <n-card>
-            <n-form>
-                <!--新增才有-->
-                <n-form-item label="大分類" v-show="(route.params.id === '0')">
-                <n-select v-model:value="Data.MenuCategoryID" :options="MenuCategoryOption" />
-                </n-form-item>
-                <n-form-item label="狀態">
-                    <n-switch checked-value="Y" unchecked-value="N" v-model:value="Data.Status"/>
-                </n-form-item>
-                <n-form-item label="排序">
-                    <n-input-number type="text" v-model:value="Data.Seq"/>
-                </n-form-item>
-                <n-form-item label="標題">
-                    <n-input type="text" v-model:value="Data.Title"/>
-                </n-form-item>
-                <n-form-item label="副標題">
-                    <n-input type="text" v-model:value="Data.Subtitle"/>
-                </n-form-item>
-                <n-form-item label="內文1">
-                    <n-input type="textarea" v-model:value="Data.Content"/>
-                </n-form-item>
-                <n-form-item label="內文2">
-                    <n-input type="textarea" v-model:value="Data.Content2"/>
-                </n-form-item>
-                <n-form-item label="內文3">
-                    <n-input type="textarea" v-model:value="Data.Content3"/>
-                </n-form-item>
-                <n-form-item label="內文4">
-                    <n-input type="textarea" v-model:value="Data.Content4"/>
-                </n-form-item>
-                <n-form-item label="內文5">
-                    <n-input type="textarea" v-model:value="Data.Content5"/>
-                </n-form-item>
-                <n-form-item label="內文6">
-                    <n-input type="textarea" v-model:value="Data.Content6"/>
-                </n-form-item>
-                <n-form-item label="內文7">
-                    <n-input type="textarea" v-model:value="Data.Content7"/>
-                </n-form-item>
-                <n-form-item label="檔案">
-                    <n-upload
-                        action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
-                        :headers="{
-      'naive-info': 'hello!'
-    }"
-                        :data="{
-      'naive-data': 'cool! naive!'
-    }"
-                    >
-                        <n-button>上传文件</n-button>
-                    </n-upload>
-                    <n-button @click="handleSubmit">送出</n-button>
-                </n-form-item>
+  <n-page-header title="商品小分類" subtitle="新增" @back="handleBack">
+    <n-card>
+      <n-form>
+        <!--新增才有-->
+        <n-form-item label="大分類" v-show="(route.params.id === '0')">
+          <n-select v-model:value="Data.MenuCategoryID" :options="MenuCategoryOption"/>
+        </n-form-item>
+        <n-form-item label="狀態">
+          <n-switch checked-value="Y" unchecked-value="N" v-model:value="Data.Status"/>
+        </n-form-item>
+        <n-form-item label="排序">
+          <n-input-number type="text" v-model:value="Data.Seq"/>
+        </n-form-item>
+        <n-form-item label="標題">
+          <n-input type="text" v-model:value="Data.Title"/>
+        </n-form-item>
+        <n-form-item label="副標題">
+          <n-input type="text" v-model:value="Data.Subtitle"/>
+        </n-form-item>
+        <n-form-item label="活動頁時間(起)">
+          <n-date-picker v-model:formatted-value="Data.MenuTimeStart" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" clearable />
+        </n-form-item>
+        <n-form-item label="活動頁時間(迄)">
+          <n-date-picker v-model:formatted-value="Data.MenuTimeEnd" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" clearable />
+        </n-form-item>
+        <n-form-item label="內文1">
+          <froala id="edit" :tag="'textarea'" config="DataApi.FroalaEditorConfig" v-model="Data.Content"></froala>
+        </n-form-item>
+        <n-form-item label="內文2">
+          <n-input type="textarea" v-model:value="Data.Content2"/>
+        </n-form-item>
+        <n-form-item label="內文3">
+          <n-input type="textarea" v-model:value="Data.Content3"/>
+        </n-form-item>
+        <n-form-item label="內文4">
+          <n-input type="textarea" v-model:value="Data.Content4"/>
+        </n-form-item>
+        <n-form-item label="內文5">
+          <n-input type="textarea" v-model:value="Data.Content5"/>
+        </n-form-item>
+        <n-form-item label="內文6">
+          <n-input type="textarea" v-model:value="Data.Content6"/>
+        </n-form-item>
+        <n-form-item label="內文7">
+          <n-input type="textarea" v-model:value="Data.Content7"/>
+        </n-form-item>
+        <n-form-item label="圖片">
+          <n-image
+              width="200"
+              :src="DataApi.ApiMasterUrl + Data.Image1"
+          />
+        </n-form-item>
+        <n-form-item>
+          <n-upload
+              ref="uploadRef"
+              accept="image/*"
+              :action="DataApi.ApiMasterUrl + '/admin/menu/image/' + Data.ID"
+              :headers="{'Authorization': 'Bearer '+DataApi.Token}"
+              method="post"
+              name="Image1"
+              max="1"
+              :default-upload="false"
+          >
+            <n-button>上傳圖片</n-button>
+          </n-upload>
+        </n-form-item>
+        <n-form-item>
+          <n-button @click="handleSubmit">送出</n-button>
+        </n-form-item>
+      </n-form>
+    </n-card>
 
-            </n-form>
-        </n-card>
-
-    </n-page-header>
+  </n-page-header>
 </template>
