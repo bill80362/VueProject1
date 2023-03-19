@@ -90,7 +90,7 @@ const handleSubmit = async () => {
         </n-form-item>
         <n-form-item label="排序">
           <n-input-number type="text" v-model:value="Data.Seq"/>
-        </n-form-item>
+        </n-form-item>s
         <n-form-item label="標題">
           <n-input type="text" v-model:value="Data.Title"/>
         </n-form-item>
@@ -104,7 +104,7 @@ const handleSubmit = async () => {
           <n-date-picker v-model:formatted-value="Data.MenuTimeEnd" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" clearable />
         </n-form-item>
         <n-form-item label="內文1">
-          <froala id="edit" :tag="'textarea'" config="DataApi.FroalaEditorConfig" v-model="Data.Content"></froala>
+          <froala id="edit" :tag="'textarea'" :config="DataApi.FroalaEditorConfig" v-model="Data.Content"></froala>
         </n-form-item>
         <n-form-item label="內文2">
           <n-input type="textarea" v-model:value="Data.Content2"/>

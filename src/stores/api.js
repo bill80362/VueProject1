@@ -10,12 +10,13 @@ export const useDataApiStore = defineStore('api', () => {
     const ApiMasterUrl = import.meta.env.VITE_BACKEND_HOST;
     //FroalaEditorConfig
     const FroalaEditorConfig = ref({
-        imageUploadURL: ApiMasterUrl,
-        events: {
-            initialized: function () {
-                console.log('initialized')
-            }
-        }
+        imageUploadURL: ApiMasterUrl+"/editor/upload",
+        //上傳圖片，內含資料
+        imageUploadParams: {
+            Type: 'FullPath',//取得圖片完整路徑
+        },
+        //限制上傳檔案
+        imageAllowedTypes: ['jpeg', 'jpg', 'png','gif','webp'],
     });
     //Login
     const Token = ref("")
