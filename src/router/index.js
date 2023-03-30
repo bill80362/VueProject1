@@ -18,7 +18,9 @@ import GoodsSizeUpdateView from '../views/GoodsSizeUpdateView.vue'
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  //跳轉前置路徑
+  history: createWebHistory(import.meta.env.BASE_URL+'admin/'),
+  //路由
   routes: [
       /**通用*/
     {
