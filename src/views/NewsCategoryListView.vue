@@ -27,12 +27,12 @@ const TableHeader = ref([
     defaultSortOrder: 'ascend',
     sorter: 'default',
   },
-  {
-    title: '開關',
-    key: 'Status',
-    defaultSortOrder: 'ascend',
-    sorter: 'default',
-  },
+  // {
+  //   title: '開關',
+  //   key: 'Status',
+  //   defaultSortOrder: 'ascend',
+  //   sorter: 'default',
+  // },
   {
     title: '排序',
     key: 'Seq',
@@ -71,20 +71,20 @@ const TableData = ref([]);
 
 //
 onBeforeMount(async ()=>{
-  DataApi.MenuCategoryList = [];
+  DataApi.NewsCategoryList = [];
 })
 
 onMounted(async ()=>{
   //載入中
   TableLoading.value = true;
   //
-  await DataApi.apiMenuCategoryList()
+  await DataApi.apiNewsCategoryList()
   //放入資料
   TableData.value = [];
-  DataApi.MenuCategoryList.forEach((row)=>{
+  DataApi.NewsCategoryList.forEach((row)=>{
     TableData.value.push(
         {
-          ID:row.MenuCategoryID,
+          ID:row.NewsCategoryID,
           Title:row.Title,
           Status:row.Status,
           Seq:row.Seq,
@@ -98,13 +98,13 @@ onMounted(async ()=>{
 });
 
 const clickUpdate = (id) =>{
-  router.push("/menu/category/update/"+id);
+  router.push("/news/category/update/"+id);
 }
 
 </script>
 
 <template>
-  <n-page-header title="大分類管理" :subtitle="'列表、總筆數:'+DataApi.MenuCategoryList.length">
+  <n-page-header title="最新消息分類管理" :subtitle="'列表、總筆數:'+DataApi.NewsCategoryList.length">
     <template #extra>
       <n-space>
         <n-button type="success" @click="clickUpdate(0)">新增</n-button>

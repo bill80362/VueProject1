@@ -15,6 +15,12 @@ import GoodsColorUpdateView from '../views/GoodsColorUpdateView.vue'
 /**Size*/
 import GoodsSizeListView from '../views/GoodsSizeListView.vue'
 import GoodsSizeUpdateView from '../views/GoodsSizeUpdateView.vue'
+/**NewsCategory*/
+import NewsCategoryListView from '../views/NewsCategoryListView.vue'
+import NewsCategoryUpdateView from '../views/NewsCategoryUpdateView.vue'
+/**News*/
+import NewsListView from '../views/NewsListView.vue'
+import NewsUpdateView from '../views/NewsUpdateView.vue'
 
 
 const router = createRouter({
@@ -69,11 +75,37 @@ const router = createRouter({
       path: '/GoodsSize/update/:id',
       component: GoodsSizeUpdateView
     },
+    /**內容管理*/
     {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue')
-    }
+    },
+    /**內容管理－最新消息*/
+    {
+      path: '/news/category/list',
+      component: NewsCategoryListView
+    },
+    {
+      path: '/news/category/update/:id',
+      component: NewsCategoryUpdateView
+    },
+    {
+      path: '/news/list',
+      component: NewsListView
+    },
+    {
+      path: '/news/update/:id',
+      component: NewsUpdateView
+    },
+    // {
+    //   path: '/news/list',
+    //   component: GoodsSizeListView
+    // },
+    // {
+    //   path: '/news/update/:id',
+    //   component: GoodsSizeUpdateView
+    // },
   ]
 })
 

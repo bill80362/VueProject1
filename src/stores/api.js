@@ -207,6 +207,80 @@ export const useDataApiStore = defineStore('api', () => {
         //儲存
         MenuList.value = res.data.data;
     }
+    //NewsCategory
+    const NewsCategoryList = ref([]);
+    const apiNewsCategoryList = async () => {
+        try {
+            const res = await axios.get(ApiMasterUrl + "/admin/news/category", {
+                responseType: 'json',
+                "headers": {
+                    "Authorization": "Bearer " + Token.value,
+                }
+            });
+            NewsCategoryList.value = res.data.data;
+        } catch (error) {
+            //error handle
+        }
+    }
+    const apiNewsCategoryUpdateCreate = async (data) => {
+        //config
+        let axios_config = {
+            responseType: 'json',
+            "headers": {
+                "Authorization": "Bearer " + Token.value,
+            }
+        }
+        //
+        let res = [];
+        if(data.ID==="0"){
+            try {
+                res = await axios.put(ApiMasterUrl + "/admin/news/category", data, axios_config);
+            } catch (error) {}
+        }else{
+            try {
+                res = await axios.patch(ApiMasterUrl + "/admin/news/category", data, axios_config);
+            } catch (error) {}
+        }
+        //儲存
+        NewsCategoryList.value = res.data.data;
+    }
+    //News
+    const NewsList = ref([]);
+    const apiNewsList = async () => {
+        try {
+            const res = await axios.get(ApiMasterUrl + "/admin/news", {
+                responseType: 'json',
+                "headers": {
+                    "Authorization": "Bearer " + Token.value,
+                }
+            });
+            NewsList.value = res.data.data;
+        } catch (error) {
+            //error handle
+        }
+    }
+    const apiNewsUpdateCreate = async (data) => {
+        //config
+        let axios_config = {
+            responseType: 'json',
+            "headers": {
+                "Authorization": "Bearer " + Token.value,
+            }
+        }
+        //
+        let res = [];
+        if(data.ID==="0"){
+            try {
+                res = await axios.put(ApiMasterUrl + "/admin/news", data, axios_config);
+            } catch (error) {}
+        }else{
+            try {
+                res = await axios.patch(ApiMasterUrl + "/admin/news", data, axios_config);
+            } catch (error) {}
+        }
+        //儲存
+        NewsList.value = res.data.data;
+    }
 
     return {
         //
@@ -237,5 +311,13 @@ export const useDataApiStore = defineStore('api', () => {
         MenuList,
         apiMenuList,
         apiMenuUpdateCreate,
+        //NewsCategory
+        NewsCategoryList,
+        apiNewsCategoryList,
+        apiNewsCategoryUpdateCreate,
+        //News
+        NewsList,
+        apiNewsList,
+        apiNewsUpdateCreate,
     }
 })

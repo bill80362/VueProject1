@@ -23,7 +23,7 @@ const TableHeader = ref([
     },
     {
         title: '大分類',
-        key: 'MenuCategoryTitle',
+        key: 'NewsCategoryTitle',
         defaultSortOrder: 'ascend',
         sorter: 'default',
     },
@@ -33,12 +33,12 @@ const TableHeader = ref([
         defaultSortOrder: 'ascend',
         sorter: 'default',
     },
-    {
-        title: '開關',
-        key: 'Status',
-        defaultSortOrder: 'ascend',
-        sorter: 'default',
-    },
+    // {
+    //     title: '開關',
+    //     key: 'Status',
+    //     defaultSortOrder: 'ascend',
+    //     sorter: 'default',
+    // },
     {
         title: '排序',
         key: 'Seq',
@@ -74,11 +74,11 @@ const TableHeader = ref([
     },
 ])
 const TableData = ref([]);
-let MenuCategoryKeyValue = [];
+let NewsCategoryKeyValue = [];
 
 //
 onBeforeMount(async () => {
-    DataApi.MenuList = [];
+    DataApi.NewsList = [];
 })
 
 onMounted(async () => {
@@ -86,21 +86,21 @@ onMounted(async () => {
   TableLoading.value = true;
   //
     //製作分類KeyValue
-    await DataApi.apiMenuCategoryList()
-    MenuCategoryKeyValue = [];
-    DataApi.MenuCategoryList.forEach((item) => {
-        MenuCategoryKeyValue[item.MenuCategoryID] = item;
+    await DataApi.apiNewsCategoryList()
+    NewsCategoryKeyValue = [];
+    DataApi.NewsCategoryList.forEach((item) => {
+        NewsCategoryKeyValue[item.NewsCategoryID] = item;
     });
     //放入資料
-    await DataApi.apiMenuList()
+    await DataApi.apiNewsList()
     TableData.value = [];
-    DataApi.MenuList.forEach((row) => {
+    DataApi.NewsList.forEach((row) => {
         TableData.value.push(
             {
-                ID: row.MenuID,
+                ID: row.NewsID,
                 Title: row.Title,
-                MenuCategoryTitle: MenuCategoryKeyValue[row.MenuCategoryID].Title,
-                Status: row.Status,
+                NewsCategoryTitle: NewsCategoryKeyValue[row.NewsCategoryID].Title,
+                // Status: row.Status,
                 Seq: row.Seq,
                 updated_at: row.updated_at,
                 created_at: row.created_at,
@@ -112,13 +112,13 @@ onMounted(async () => {
 });
 
 const clickUpdate = (id) => {
-    router.push("/menu/update/" + id);
+    router.push("/news/update/" + id);
 }
 
 </script>
 
 <template>
-    <n-page-header title="小分類管理" :subtitle="'列表、總筆數:'+DataApi.MenuList.length">
+    <n-page-header title="最新消息管理" :subtitle="'列表、總筆數:'+DataApi.NewsList.length">
         <template #extra>
             <n-space>
                 <n-button type="success" @click="clickUpdate(0)">新增</n-button>

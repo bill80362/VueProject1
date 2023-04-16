@@ -123,8 +123,13 @@ const menuOptions = ref([
         icon: renderIcon(Settings),
       },
       {
-        label: ()=>h(RouterLink,{to:"/product/list"},"最新消息"),
-        key: "ContentM2",
+        label: ()=>h(RouterLink,{to:"/news/category/list"},"最新消息分類"),
+        key: "NewsCategory",
+        icon: renderIcon(Settings),
+      },
+      {
+        label: ()=>h(RouterLink,{to:"/news/list"},"最新消息"),
+        key: "News",
         icon: renderIcon(Settings),
       },
       {

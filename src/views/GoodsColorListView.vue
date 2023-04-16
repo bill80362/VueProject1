@@ -7,6 +7,7 @@ import {NButton} from "naive-ui";
 const DataApi = useDataApiStore();
 
 const page = ref(1)
+const TableLoading = ref(false)
 const pageTotal = ref(10)
 const pagination = ref({
     page:1,
@@ -68,6 +69,9 @@ onBeforeMount(async ()=>{
 })
 
 onMounted(async ()=>{
+  //載入中
+  TableLoading.value = true;
+  //
     await DataApi.apiColorList()
     //放入資料
     TableData.value = [];
@@ -82,6 +86,8 @@ onMounted(async ()=>{
             }
         );
     })
+  //載入完成
+  TableLoading.value = false;
 });
 
 const clickUpdate = (id) =>{
@@ -103,6 +109,7 @@ const clickUpdate = (id) =>{
             ref="table"
             :columns="TableHeader"
             :data="TableData"
+            :loading = "TableLoading"
           />
       </n-gi>
     </n-grid>
